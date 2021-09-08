@@ -1,0 +1,22 @@
+string cla1,cla2,respo,respon
+string clav,usuar
+if trim(sle_contra.text)="" or sle_usuario.text="" then
+	messagebox("Mensaje!","Digite Usuario y Contraseña.")
+	sle_usuario.setfocus()
+else
+	clave1=sle_contra.text
+	respon=sle_usuario.text
+	select claves.clave1,claves.clave2,claves.resp,claves.tipo into :cla1,:cla2,:respo,:tipo from claves where claves.clave1=:clave1 and claves.clave2=:clave1 and claves.resp=:respon;
+	if sqlca.sqlcode = 0 then
+		open(w_menufacturacion)
+		close(parent)
+		cajero = respo
+		if tipo="Usuario" then
+			menufacturacion.m_archivo.m_aperturadecaja.enabled=false
+			menufacturacion.m_mantenimiento.m_backup.enabled=false
+			menufacturacion.m_mantenimiento.m_restaurarbd.enabled=false
+			menufacturacion.m_cartera.m_cuadredecaja.enabled=false
+			menufacturacion.m_administrador.m_claves.enabled=false
+			menufacturacion.m_administrador.m_admin.enabled=false
+			menufacturacion.m_arqueodecaja.enabled=false
+		end if
